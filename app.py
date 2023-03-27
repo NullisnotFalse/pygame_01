@@ -444,13 +444,20 @@ while go == 1:
             go = 0
     font = pygame.font.Font("./font/ariblk.ttf", 60)
     text = font.render("GAME OVER", True, (255, 0, 0))
-    screen.blit(text, (round(size[0]/2 - 200), round(size[1]/2 - 100)))
+    screen.blit(text, (round(size[0]/2 - 220), round(size[1]/2 - 100)))
     font = pygame.font.Font("./font/ariblk.ttf", 30)
     text_kill = font.render("killed : {}  loss : {}".format(
-        kill, loss), True, (255, 255, 0))
-    screen.blit(text_kill, (round(size[0]/2 - 140), round(size[1]/2)))
+        kill, loss), True, (255, 255, 255))
+    screen.blit(text_kill, (round(size[0]/2 - 160), round(size[1]/2)))
     text_time = font.render("time : {}".format(
         delta_time), True, (255, 255, 255))
-    screen.blit(text_time, (round(size[0]/2 - 70), round(size[1]/2 + 30)))
+    screen.blit(text_time, (round(size[0]/2 - 80), round(size[1]/2 + 30)))
+    text = font.render("SPECIAL THANKS TO", True, (255, 255, 0))
+    screen.blit(text, (round(size[0]/2 - 180), round(size[1]/2 + 100)))
+    text = font.render(
+        "\"LEE SE HEE\" AND \"SEO CHAE YEON\"", True, (255, 255, 0))
+    screen.blit(text, (round(size[0]/2 - 330), round(size[1]/2 + 150)))
+    text = font.render("AND \"HANMARIYANG\"", True, (255, 255, 0))
+    screen.blit(text, (round(size[0]/2 - 180), round(size[1]/2 + 200)))
     pygame.display.flip()
 pygame.quit()
