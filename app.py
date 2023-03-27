@@ -166,9 +166,12 @@ while quit_code == 0:
                 quit_code = 1
     screen.fill(black)
     font = pygame.font.Font("./font/ariblk.ttf", 25)
-    text = font.render("PRESS LEFT KEY OR RIGHT KEY TO CHOOSE CHARACTER",
-                       True, (255, 255, 255))
-    screen.blit(text, (round(size[0]/2 - 400), 200))
+    text1 = font.render("← → ↑ ↓ + space bar",
+                        True, (255, 255, 255))
+    screen.blit(text1, (round(size[0]/2 - 150), 150))
+    text2 = font.render("PRESS LEFT KEY OR RIGHT KEY TO CHOOSE CHARACTER",
+                        True, (255, 255, 255))
+    screen.blit(text2, (round(size[0]/2 - 400), 200))
     sehee_img = pygame.image.load("./img/sehee_down.png").convert_alpha()
     screen.blit(sehee_img, (round(size[0]/2 - 300), 340))
     chaeyeon_img = pygame.image.load("./img/chaeyeon_down.png").convert_alpha()
