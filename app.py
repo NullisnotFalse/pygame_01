@@ -75,11 +75,9 @@ while player.alive and codus.alive:
     codus.attack(player)
     player.show_status()
 
-print("전투가 끝났습니다!")
+print("전투가 끝났습니다! 계속 하시려면 ENTER KEY를 눌러주세요.")
 
-time.sleep(0.5)
-
-temp = input("ENTER KEY를 눌러주세요.")
+input("")
 
 
 # 1. 게임 초기화
@@ -89,7 +87,7 @@ pygame.init()
 size = [1200, 667]
 screen = pygame.display.set_mode(size)
 
-title = ""
+title = "탁근몬 때려잡기"
 pygame.display.set_caption(title)
 
 # 3. 게임 내 필요한 설정
