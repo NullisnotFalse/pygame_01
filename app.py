@@ -27,7 +27,7 @@ class Player:
     def magic_attack(self, other):
         damage = random.randint(self.power * 2 - 5, self.power * 2 + 5)
         other.hp = max(other.hp - damage, 0)
-        self.mp -= 20
+        self.mp -= 30
         print(f"{self.name}의 마법 공격! {other.name}에게 {damage}의 데미지를 입혔습니다.")
         if other.hp == 0:
             print(f"{other.name}이(가) 쓰러졌습니다.")
@@ -68,8 +68,12 @@ while player.alive and codus.alive:
         player.attack(codus)
         codus.show_status()
     elif attack_type == "마법":
-        player.magic_attack(codus)
-        codus.show_status()
+        if player.mp >= 30:
+            player.magic_attack(codus)
+            codus.show_status()
+        elif player.mp < 30:
+            print("mp가 부족합니다.")
+            continue
     else:
         print("잘못된 입력입니다. 다시 입력해주세요.")
         continue
@@ -152,6 +156,9 @@ loss = 0
 name = ""
 
 # 4-0. 게임 시작 대기 화면
+pygame.mixer.music.load('./bgm/main_bgm.mp3')
+pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.play(loops=-1)
 quit_code = 0
 while quit_code == 0:
     clock.tick(60)
@@ -183,8 +190,16 @@ while quit_code == 0:
 ss = Obj()
 if name == "sehee":
     ss.put_img("./img/sehee_down.png")
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load('./bgm/sehee_thema.mp3')
+    pygame.mixer.music.set_volume(0.5)
+    pygame.mixer.music.play(loops=-1)
 elif name == "chaeyeon":
     ss.put_img("./img/chaeyeon_down.png")
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load('./bgm/chaeyeon_thema.mp3')
+    pygame.mixer.music.set_volume(0.5)
+    pygame.mixer.music.play(loops=-1)
 ss.change_size(37, 50)
 ss.x = round(size[0]/2) - round(ss.sx/2)
 ss.y = round(size[1]/2) - round(ss.sy/2)
@@ -209,7 +224,7 @@ while quit_code == 0:
                     ss.put_img("./img/sehee_left.png")
                 elif name == "chaeyeon":
                     ss.put_img("./img/chaeyeon_left.png")
-                ss.change_size(40, 50)
+                ss.change_size(37, 50)
                 left_go = True
                 direction = "left"
             elif event.key == pygame.K_RIGHT:
@@ -217,7 +232,7 @@ while quit_code == 0:
                     ss.put_img("./img/sehee_right.png")
                 elif name == "chaeyeon":
                     ss.put_img("./img/chaeyeon_right.png")
-                ss.change_size(40, 50)
+                ss.change_size(37, 50)
                 right_go = True
                 direction = "right"
             elif event.key == pygame.K_UP:
@@ -225,7 +240,7 @@ while quit_code == 0:
                     ss.put_img("./img/sehee_up.png")
                 elif name == "chaeyeon":
                     ss.put_img("./img/chaeyeon_up.png")
-                ss.change_size(40, 50)
+                ss.change_size(37, 50)
                 up_go = True
                 direction = "up"
             elif event.key == pygame.K_DOWN:
@@ -233,7 +248,7 @@ while quit_code == 0:
                     ss.put_img("./img/sehee_down.png")
                 elif name == "chaeyeon":
                     ss.put_img("./img/chaeyeon_down.png")
-                ss.change_size(40, 50)
+                ss.change_size(37, 50)
                 down_go = True
                 direction = "down"
             elif event.key == pygame.K_SPACE:
@@ -435,24 +450,31 @@ while quit_code == 0:
 
     text_time = font.render("time : {}".format(
         delta_time), True, (255, 255, 255))
-    screen.blit(text_time, (size[0] - 100, 5))
+    screen.blit(text_time, (size[0] - 150, 5))
 
     # 4-5. 업데이트
     pygame.display.flip()
 
 # 5. 게임 종료
+pygame.mixer.music.stop()
+pygame.mixer.music.load('./bgm/gameover.mp3')
+pygame.mixer.music.set_volume(0.7)
+pygame.mixer.music.play()
 while go == 1:
     clock.tick(60)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             go = 0
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                go = 0
     font = pygame.font.Font("./font/ariblk.ttf", 60)
     text = font.render("GAME OVER", True, (255, 0, 0))
     screen.blit(text, (round(size[0]/2 - 220), round(size[1]/2 - 100)))
     font = pygame.font.Font("./font/ariblk.ttf", 30)
     text_kill = font.render("killed : {}  loss : {}".format(
         kill, loss), True, (255, 255, 255))
-    screen.blit(text_kill, (round(size[0]/2 - 160), round(size[1]/2)))
+    screen.blit(text_kill, (round(size[0]/2 - 180), round(size[1]/2)))
     text_time = font.render("time : {}".format(
         delta_time), True, (255, 255, 255))
     screen.blit(text_time, (round(size[0]/2 - 80), round(size[1]/2 + 30)))
