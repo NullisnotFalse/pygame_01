@@ -10,6 +10,8 @@ class Player:
     power = 30
     alive = True
     max_hp = hp
+    mp = 100
+    max_mp = mp
 
     def __init__(self, name):
         self.name = name
@@ -25,13 +27,14 @@ class Player:
     def magic_attack(self, other):
         damage = random.randint(self.power * 2 - 5, self.power * 2 + 5)
         other.hp = max(other.hp - damage, 0)
+        self.mp -= 20
         print(f"{self.name}의 마법 공격! {other.name}에게 {damage}의 데미지를 입혔습니다.")
         if other.hp == 0:
             print(f"{other.name}이(가) 쓰러졌습니다.")
             other.alive = False
 
     def show_status(self):
-        print(f"{self.name}의 상태: HP {self.hp}/{self.max_hp}")
+        print(f"{self.name}의 상태: HP {self.hp}/{self.max_hp} MP {self.mp}/{self.max_mp}")
 
 
 class Enemy:
